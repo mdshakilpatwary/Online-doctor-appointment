@@ -1,0 +1,1 @@
+controller for a model : php artisan make:controller PhotoController --model=Photo --resource

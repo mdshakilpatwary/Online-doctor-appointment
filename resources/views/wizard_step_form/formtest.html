@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+
+    <!-- bootstrapstrap -->
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap-5.3.0-alpha1-dist/css/bootstrap.css">
+    <script src="vendor/bootstrap-5.3.0-alpha1-dist/js/bootstrap.bundle.js"></script>
+    <!-- <script src="vendor/bootstrap-5.3.0-alpha1-dist/js/bootstrap.js"></script> -->
+    <script src="vendor/jquery/jquery-3.6.3.min.js" ></script>
+
+</head>
+
+<body>
+    <!-- Training information step   -->
+    <div class="col-12 col-lg-8 col-xl-8 col-xxl-8 form-container" id="training_info_container">
+        <form action="" method="post" id="form_training" class="needs-validation" novalidate>
+
+            <div class="input-train-container row g-3">
+                <div class="col-12">
+                    <label for="institute" class="form-label">Institute</label>
+                    <input type="text" data="isAlpha" class="form-control form-field" name="institute" id="institute"
+                        placeholder="Institute Name" required>
+
+                    <div class="invalid-feedback">
+                        Only Alphabetical characters are allowed.
+                    </div>
+                    
+                </div>
+
+                <div class="col-12">
+                    <label for="specialization" class="form-label">Specialization</label>
+                    <select id="specialization" name="specialization" required class="form-select form-field"
+                        aria-label="Default select example">
+                        <option value="" disabled selected>Select One</option>
+                        <option value="1">Subject 1</option>
+                        <option value="2">Subject 2</option>
+                        <option value="3">Subject 3</option>
+                        <option value="4">Subject 4</option>
+                    </select>
+                </div>
+
+                <div class="col-12 col-lg-6 col-xl-6 col-xxl-6">
+                    <label for="from_date" class="form-label">From</label>
+                    <input type="date" class="form-control form-field" name="from_date" id="from_date" placeholder=""
+                        required>
+                </div>
+
+                <div class="col-12 col-lg-6 col-xl-6 col-xxl-6">
+                    <label for="to_date" class="form-label">To</label>
+                    <input type="date" class="form-control form-field" name="to_date" id="to_date" placeholder=""
+                        required>
+                </div>
+
+                <div class="col-12 col-lg-6 col-xl-6 col-xxl-6">
+                    <label for="training_certificate" class="form-label">Upload certificate(image/pdf)</label>
+                    <input type="file" class="form-control form-field" name="training_certificate"
+                        id="training_certificate" placeholder="" required>
+                </div>
+                <div class="col-12 col-lg-6 col-xl-6 col-xxl-6">
+                    <label for="edu_doc_titile" class="form-label">Certificate Title</label>
+                    <input type="text" class="form-control form-field" name="edu_doc_titile" id="edu_doc_titile"
+                        placeholder="" required>
+                </div>
+            </div>
+
+            <!-- <div class="col-6 my-3 d-grid mx-auto">
+                <button type="button" id="btnAddMoreTrain" class="btn btn-outline-secondary"><span><i
+                            class="fa-solid fa-plus"></i> Add More</span></button>
+            </div> -->
+
+            <div class="col-12 mt-4">
+                <div class="text-center">
+                    <button class="btn btn-outline-info" type="submit" name="back">SUbmit</button>
+                    <!-- <button class="btn btn-outline-primary" name="btnSaveTraining" type="button">Continue</button> -->
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="js/validation.js"></script>
+    <script>
+        // tooltip code 
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        
+        (() => {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })();
+    </script>
+
+    <script>
+        const formValidate = new Validate();
+
+
+        const insName = $("[data='isAlpha']");
+        $(insName).on('input',(e=>{
+            fieldData = e.target.value;
+            if(fieldData == ''){
+                $(insName).addClass('is-invalid');
+            }else{
+                if(!formValidate.isAlphabetic(insName.val())){
+                    $(insName).addClass('is-invalid');
+                }else{
+                    $(insName).removeClass('is-invalid');
+                    $(insName).addClass('is-valid');
+                }
+            }
+        }));
+
+        // document.querySelector("[data='isAlpha']").addEventListener('input',e=>{
+        //     console.log('from js');
+        //     console.log(e.target.value);
+        // });
+        // const formValidate = new Validate();
+        console.log(formValidate.isAlphabetic(insName.val()));
+
+        // console.log($("[data='isAlpha']").val());
+    </script>
+
+</body>
+
+</html>
